@@ -2,7 +2,7 @@
 layout: post
 title:  "hive防止数据倾斜"
 categories: Hive
-tags:  hive data_skew sql
+tags:  hive sql
 author: ZhL
 ---
 
@@ -49,7 +49,7 @@ Map 端部分聚合，相当于Combiner
 
 - 大表JOIN小表
 
-如果小表很小(表规模<=1w),在主语句中使用 **/*+ mapjoin(b)*/** 将小表载入内存进行计算,此时整个job在map阶段就进行了join操作,reducer个数为0,一般hive中能够配置自动识别join过程中的表的大小将小表载入内存(小表默认大小为25m).
+如果小表很小(一般表达小<=25m),在主语句中使用 **/*+ mapjoin(b)*/** 将小表载入内存进行计算,此时整个job在map阶段就进行了join操作,reducer个数为0,一般hive中能够配置自动识别join过程中的表的大小将小表载入内存(小表默认大小为25m).
 
 当两个表都是很大的情况下,mapjoin参数无效,如果想要强制将其中一个表载入内存可使用:
 
