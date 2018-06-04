@@ -45,7 +45,7 @@ Map 端部分聚合，相当于Combiner
 
 - JOIN操作
 
-驱动表去重,去特殊值,在不影响业务的情况下尽量减小驱动表,选取或构造key相对均匀的数据进行join
+驱动表去重,去特殊值(根据业务或自行查找key_nvalue较多的key值,对其进行单独计算),在不影响业务的情况下尽量减小驱动表,选取或构造key相对均匀的数据进行join
 
 - 大表JOIN小表
 
@@ -111,79 +111,30 @@ GROUP BY key;
 
 此语句的思想是将整体去重的数据以value截取的部分内容作为中间value,将key和sub_value的整体作为key进行聚合,统计数目,之后将同一个key下的值使用sum()函数进行相加,这样使整合成的整体的key分布相对均匀,能够有效避免key少value多的情况.
 
+还可以使用:
 
+```sql
 
+SELECT key1,SUM(nzid) AS nzid
+  FROM (
+    SELECT key_set,COUNT(1) AS nvalue
+    FROM (
+      SELECT value,collect_set(key) AS key_set
+      FROM (
+        SELECT key,value
+        FROM table
+        GROUP BY key,value
+      )a
+      GROUP BY value
+    )b
+    GROUP BY key_set
+)c
+LATERAL VIEW explode(key_set) table1 as key1
+GROUP BY key1;
 
-
-## 代码
-
-获取剩余时间的代码如下：
-
-```js
-/**
- * 获取剩余时间
- * @param  {Number} endTime    截止时间
- * @param  {Number} deviceTime 设备时间
- * @param  {Number} serverTime 服务端时间
- * @return {Object}            剩余时间对象
- */
-let getRemainTime = (endTime, deviceTime, serverTime) => {
-    let t = endTime - Date.parse(new Date()) - serverTime + deviceTime
-    let seconds = Math.floor((t / 1000) % 60)
-    let minutes = Math.floor((t / 1000 / 60) % 60)
-    let hours = Math.floor((t / (1000 * 60 * 60)) % 24)
-    let days = Math.floor(t / (1000 * 60 * 60 * 24))
-    return {
-        'total': t,
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds
-    }
-}
 ```
 
-<del>获取服务器时间可以使用 mtop 接口 `mtop.common.getTimestamp` </del>
+我编写这个sql的思想当时就想反向操作,既然key少value多,那索性使用value聚合,将同一个value的不同key整合成一个set序列,这事我们再使用key_set来聚合,统计不同key_set所对应的value的量,然后将key_set拆解,此时含有多个相同的key字段,每个key字段所对应的value的个数就是其所在的key_set所对应的value的个数,最后使用key进行聚合,将其对应的值使用sum()函数相加,即得结果.
 
-然后可以通过下面的方式来使用：
 
-```js
-// 获取服务端时间（获取服务端时间代码略）
-getServerTime((serverTime) => {
-
-    //设置定时器
-    let intervalTimer = setInterval(() => {
-
-        // 得到剩余时间
-        let remainTime = getRemainTime(endTime, deviceTime, serverTime)
-
-        // 倒计时到两个小时内
-        if (remainTime.total <= 7200000 && remainTime.total > 0) {
-            // do something
-
-        //倒计时结束
-        } else if (remainTime.total <= 0) {
-            clearInterval(intervalTimer);
-            // do something
-        }
-    }, 1000)
-})
-```
-
-这样的的写法也可以做到准确倒计时，同时也比较简洁。不需要隔段时间再去同步一次服务端时间。
-
-## 补充
-
-在写倒计时的时候遇到了一个坑这里记录一下。
-
-**千万别在倒计时结束的时候请求接口**。会让服务端瞬间 QPS 峰值达到非常高。
-
-![](https://img.alicdn.com/tfs/TB1LBzjOpXXXXcnXpXXXXXXXXXX-154-71.png)
-
-![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/)
-
-如果在倒计时结束的时候要使用新的数据渲染页面，正确的做法是：
-
-在倒计时结束前的一段时间里，先请求好数据，倒计时结束后，再渲染页面。
-
-关于倒计时，如果你有什么更好的解决方案，欢迎评论交流。
+关于hive上的数据倾斜，如果你有什么更好的解决方案，欢迎评论交流。
