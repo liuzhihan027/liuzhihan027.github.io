@@ -14,6 +14,9 @@ author: HyG
 ![](https://img.alicdn.com/tfs/TB18QnlOpXXXXcVXpXXXXXXXXXX-388-256.png)
 
 
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/word_cup.jpg)
+
+
 
 
 ## 原理
@@ -94,6 +97,8 @@ getServerTime((serverTime) => {
 **千万别在倒计时结束的时候请求接口**。会让服务端瞬间 QPS 峰值达到非常高。
 
 ![](https://img.alicdn.com/tfs/TB1LBzjOpXXXXcnXpXXXXXXXXXX-154-71.png)
+
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/)
 
 如果在倒计时结束的时候要使用新的数据渲染页面，正确的做法是：
 
