@@ -23,3 +23,7 @@ $$ I^2 = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-x^2}dx
  =\dfrac{\pi}{4}\\
  I=\dfrac{\sqrt{\pi}}{4}
 $$
+
+
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
