@@ -9,7 +9,7 @@ author: ZhL
 * content
 {:toc}
 
-# 1. 一场用微积分结果求解过程
+# 1. 一个用微积分结果求解过程
 
 $$ I^2 = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-x^2}dx
  = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-y^2}dy\; \\
