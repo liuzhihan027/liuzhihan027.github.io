@@ -11,7 +11,9 @@ author: ZhL
 
 # 1. 一个用微积分结果求解过程
 
-$$ I^2 = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-x^2}dx
+$$
+\begin{align}
+I^2 = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-x^2}dx
  = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-y^2}dy\; \\
  = \int_{0}^{+\infty}dx \cdot \int_{0}^{+\infty}e^{-(x^2+y^2)}dy\; \\
  = \underset{0\leq x\leq+\infty;0\leq y\leq+\infty } \iint\quad e^{-(x^2+y^2)}dxdy
@@ -22,6 +24,8 @@ $$ I^2 = \int_{0}^{+\infty}e^{-x^2}dx \cdot \int_{0}^{+\infty}e^{-x^2}dx
  =-\dfrac{\pi}{4}(e^{-r^2} | _0^{+\infty})
  =\dfrac{\pi}{4}\\
  I=\dfrac{\sqrt{\pi}}{4}
+\end{align}
+
 $$
 
 
