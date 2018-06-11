@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "微积分题目"
-categories: calculus
-tags:  calculus question
+categories: 微积分
+tags:  微积分 题目解答
 author: ZhL
 ---
 
