@@ -37,4 +37,6 @@ plt.show()
 
 ```
 执行后显示结果:
+
+
  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-001.png)
