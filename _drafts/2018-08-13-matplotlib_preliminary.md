@@ -28,7 +28,6 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 创建线型图,横轴为年份,纵轴为gdp
 plt.plot(years, gdp, color='green', marker='o', linestyle='solid')
-
 plt.title(u"每年 GDP") # 添加标题
 
 # 为y轴添加注释
@@ -36,3 +35,6 @@ plt.ylabel(u"十亿美元")
 plt.show()
 
 ```
+
+执行后显示结果:
+ ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-001.png)
