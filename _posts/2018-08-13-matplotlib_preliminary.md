@@ -28,7 +28,6 @@ plt.rcParams['axes.unicode_minus'] = False
 
 # 创建线型图,横轴为年份,纵轴为gdp
 plt.plot(years, gdp, color='green', marker='o', linestyle='solid')
-
 plt.title(u"每年 GDP") # 添加标题
 
 # 为y轴添加注释
@@ -40,3 +39,36 @@ plt.show()
 
 
  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-001.png)
+
+ # 3. 条形图
+
+ ```python
+ import matplotlib.pyplot as plt
+
+ # 数据(电影名称和获奖次数)
+ movies = ["Annie Hall", "Ben-Hur", "Casablanca", "Gandhi", "West Side Story"]
+ num_oscars = [5, 11, 3, 8, 10]
+
+ # 中文兼容
+ plt.rcParams['font.sans-serif'] = ['SimHei']
+ plt.rcParams['axes.unicode_minus'] = False
+
+ # 横坐标
+ xs = [i  for i, _ in enumerate(movies)]
+
+ # 根据横纵坐标画图
+ plt.bar(xs, num_oscars)
+ plt.ylabel(u"获奖数量")
+ plt.title(u"最喜爱的电影")
+
+ # 电影名称标记x轴
+ plt.xticks([i for i, _ in enumerate(movies)], movies)
+
+ plt.show()
+
+ ```
+
+ 显示结果:
+
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-002.png)
