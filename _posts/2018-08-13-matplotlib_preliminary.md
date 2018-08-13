@@ -194,7 +194,7 @@ plt.axis("equal")
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-005.png)
 
 
-如果不进行强制同步则
+如果不进行强制同步,matplotlib会自动选择较合适的刻度,有时候可能会生成一个具有误导性的图
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-006.png)
