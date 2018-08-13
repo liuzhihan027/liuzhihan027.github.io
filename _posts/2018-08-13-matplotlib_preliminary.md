@@ -40,7 +40,7 @@ plt.show()
 
  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-001.png)
 
-# 2. 条形图
+# 3. 条形图
 
  ```python
  import matplotlib.pyplot as plt
@@ -73,7 +73,7 @@ plt.show()
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-002.png)
 
-# 2. 直方图
+# 4. 直方图
 
 
 直方图的画法和条形图类似
