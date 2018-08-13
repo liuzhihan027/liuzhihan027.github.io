@@ -146,3 +146,55 @@ plt.show()
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-004.png)
+
+
+# 6. 散点图
+
+
+```python
+
+import matplotlib.pyplot as plt
+
+# 处理中文
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 数据(朋友数,在社交网站时间,用户标签)
+friends = [ 70, 65, 72, 63, 71, 64, 60, 64, 67]
+minutes = [175, 170, 205, 120, 220, 130, 105, 145, 190]
+labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+
+plt.scatter(friends, minutes)
+
+# 对每个点添加标记
+for label, friend_count, minute_count in zip(labels, friends, minutes):
+    plt.annotate(label,
+                 xy=(friend_count, minute_count), # 将标记放在对应点上
+                 xytext=(5, -5), # 需要部分偏离
+                 textcoords='offset points')
+
+plt.title(u"日分钟数与朋友数")
+
+# 将横纵坐标起始位置同步在0上
+plt.axis("equal")
+plt.xlabel(u"朋友的个数")
+plt.ylabel(u"花在网站上的日分钟数")
+plt.show()
+
+```
+
+这个函数
+```python
+plt.axis("equal")
+```
+
+这是强制将x和y的起始点进行同步
+
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-005.png)
+
+
+如果不进行强制同步则
+
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-006.png)
