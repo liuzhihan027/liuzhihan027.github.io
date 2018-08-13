@@ -78,7 +78,7 @@ plt.show()
 
 直方图的画法和条形图类似
 
-```Python
+ ```python
 
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -109,7 +109,7 @@ plt.ylabel(u"学生个数")
 plt.title(u"考试分数分布图")
 plt.show()
 
-```
+ ```
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-003.png)
