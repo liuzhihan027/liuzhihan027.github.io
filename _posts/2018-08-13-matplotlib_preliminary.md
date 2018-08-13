@@ -72,3 +72,44 @@ plt.show()
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-002.png)
+
+  # 2. 直方图
+
+
+  直方图的画法和条形图类似
+
+  ```Python
+
+import matplotlib.pyplot as plt
+from collections import Counter
+
+
+# 处理中文
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 数据(每个学生分数)
+grades = [83,95,91,87,70,0,85,82,100,67,73,77,0]
+# 划分分数等级
+decile = lambda grade: grade // 10 * 10
+# 每个分数级别对应的人数
+histogram = Counter(decile(grade) for grade in grades)
+
+# 第三个参数(8)设置条形宽度
+plt.bar([x for x in histogram.keys()],
+        histogram.values(),
+        8)
+# x轴范围(-5~105),y轴范围(0~5)
+plt.axis([-5, 105, 0, 5])
+
+# x轴注释(0, 10, ..., 100)
+plt.xticks([10 * i for i in range(11)])
+plt.xlabel(u"分数等级")
+plt.ylabel(u"学生个数")
+plt.title(u"考试分数分布图")
+plt.show()
+
+  ```
+
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-003.png)
