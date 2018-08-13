@@ -113,3 +113,36 @@ plt.show()
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-003.png)
+
+# 5. 线图
+
+```python
+
+import matplotlib.pyplot as plt
+
+# 处理中文
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 数据(方差,偏差,总误差)
+variance     = [1,2,4,8,16,32,64,128,256]
+bias_squared = [256,128,64,32,16,8,4,2,1]
+total_error  = [x + y for x, y in zip(variance, bias_squared)]
+
+xs = range(len(variance))
+
+# 调用多次,可以在同一画布上添加多条线
+plt.plot(xs, variance,     'g-',  label=u'方差')    # 绿色实线
+plt.plot(xs, bias_squared, 'r-.', label=u'偏差的平方')      # 红色点虚线
+plt.plot(xs, total_error,  'b:',  label=u'总误差') # 蓝色点线
+
+# loc=9表示将图例放置在顶部中央
+plt.legend(loc=9)
+plt.xlabel(u"模型复杂度")
+plt.title(u"偏差-方差权衡图")
+plt.show()
+
+```
+
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-004.png)
