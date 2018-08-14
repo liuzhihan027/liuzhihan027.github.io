@@ -35,7 +35,7 @@ from functools import partial # 偏函数
 
 最简单的方式就是将向量表示为数字的列表
 
-## 3.1两个向量相加:
+##3.1两个向量相加:
 ```python
 # 向量相加
 def vector_add(v, w):
