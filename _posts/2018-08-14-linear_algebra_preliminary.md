@@ -35,19 +35,21 @@ from functools import partial # 偏函数
 
 最简单的方式就是将向量表示为数字的列表
 
-两个向量相加:
+## 3.1两个向量相加:
 ```python
 # 向量相加
 def vector_add(v, w):
     return [v_i + w_i for v_i, w_i in zip(v, w)]
 ```
 
-两个向量相减:
+## 3.2两个向量相减:
 ```python
 # 两个向量相减
 def vector_subtract(v, w):
     return [v_i - w_i for v_i, w_i in zip(v, w)]
 ```
+
+## 3.3多个向量相加
 
 有时候我们会将多个向量进行相加操作,这时我们可以使用python中的高级的函数:
 ```python
@@ -56,7 +58,7 @@ def vector_sum(vectors):
     return reduce(vector_add, vectors)
 ```
 
-数乘向量:
+## 3.4数乘向量:
 
 ```python
 # 数乘向量
