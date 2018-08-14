@@ -98,3 +98,6 @@ def mode(x):
     return [x_i for x_i, count in counts.iteritems()
             if count == max_count]
 ```
+
+
+## 3.2 离散度
