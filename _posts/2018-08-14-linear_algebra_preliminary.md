@@ -216,3 +216,11 @@ identity_matrix = make_matrix(5, 5, is_diagonal)
 ```
 
 对于较为简单的矩阵我们可以直接使用A[ i ][ j ]来进行查找,但对于过大过于稀疏的矩阵,还会使用其他方法来进行优化,这些将在以后进一步学习.
+
+
+
+
+
+
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
