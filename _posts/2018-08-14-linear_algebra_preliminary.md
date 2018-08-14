@@ -93,7 +93,7 @@ def dot(v, w):
 
 向量的点乘衡量了向量v在向量w的方向上的延伸程度,另一个解释是向量v在向量w上的投影所得到的向量长度.
 
-## 3.6 向量平方和
+## 3.7 向量平方和
 
 通过点乘很容易计算出向量的平方和(同一个向量做点乘):
 
@@ -103,7 +103,7 @@ def sum_of_squares(v):
     return dot(v, v)
 ```
 
-## 3.6 向量的大小
+## 3.8 向量的大小
 
 向量的大小由向量的平方和开根号得到:
 
@@ -114,7 +114,7 @@ def magnitude(v):
 ```
 
 
-## 3.6 向量的距离
+## 3.9 向量的距离
 
 在有些时候我们需要计算两个向量间的距离,这里简单介绍下比较常用的欧几里得距离计算公式:
 
@@ -141,3 +141,74 @@ def squared_distance(v, w):
  def distance(v, w):
      return math.sqrt(squared_distance(v, w))
  ```
+
+
+ # 4. 矩阵
+
+矩阵是一个二维的数据集合,我们将矩阵表示为列表的列表,如果A是一个矩阵，那么 A[ i ][ j ]就表示第i行第j列的元素。
+
+
+## 4.1 矩阵的形状
+
+我们使用矩阵的行数和列数来描述矩阵的大小:
+
+```python
+# 矩阵的形状
+def shape(A):
+    #行数
+    num_rows = len(A)
+    # 列数
+    num_cols = len(A[0]) if A else 0
+    return num_rows, num_cols
+```
+
+## 4.2 矩阵数据的获取
+
+获取指定行:
+
+```python
+# 获取矩阵A的第i行
+def get_row(A, i):
+    return A[i]
+```
+
+获取指定列:
+
+```python
+# 获取指定列
+def get_column(A, j):
+    return [A_i[j] for A_i in A]
+```
+
+这里获取的行或者列均可以看成是一个向量
+
+## 4.3 矩阵的创建
+
+我们可以通过形状和用来生成元素的函数来创建矩阵:
+
+```python
+# 创建矩阵
+def make_matrix(num_rows, num_cols, entry_fn):
+    # 返回一个num_rows行,num_cols列
+    # 经过函数entry_fn处理后元素的矩阵
+    return [[entry_fn(i, j) for j in range(num_cols)]
+            for i in range(num_rows)]
+```
+
+这样我们可以生成一个单位矩阵(行列相等,对角线元素全为1,其他为0):
+
+```python
+# 行列坐标相等为1否则为0
+def is_diagonal(i, j):
+    return 1 if i == j else 0
+
+# 使用此函数生成一个5*5的单位矩阵
+identity_matrix = make_matrix(5, 5, is_diagonal)
+
+# 效果展示
+#[[1,0,0,0,0],
+# [0,1,0,0,0],
+# [0,0,1,0,0],
+# [0,0,0,1,0],
+# [0,0,0,0,1]]
+```
