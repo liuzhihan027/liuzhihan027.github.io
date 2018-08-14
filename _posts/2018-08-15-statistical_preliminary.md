@@ -196,7 +196,7 @@ def interquartile_range(x):
  协方差的计算公式:
 
  $$
-cov(X,Y) = \frac{1}{n}\sum_{i=1}^n(x_i - E(X))(y_i - E(Y))
+Cov(X,Y) = \frac{1}{n}\sum_{i=1}^n(x_i - E(X))(y_i - E(Y))
  $$
 
  其中E(X),E(Y)我们使用X和Y的均值
@@ -219,3 +219,30 @@ def covariance(x, y):
 ```
 
 这里也是使用的(n - 1)而不是使用n,同计算方差的原因一致.
+
+
+## 4.2 相关系数
+
+相关系数是最早由统计学家卡尔·皮尔逊设计的统计指标，是研究变量之间线性相关程度的量，一般用字母 r 表示。由于研究对象的不同，相关系数有多种定义方式，较为常用的是皮尔逊相关系数。
+
+ 其计算公式为:
+
+ $$
+r(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[ X ]Var[ Y ]}}
+ $$
+
+计算方式为协方差除以两个变量的标准差:
+
+```python
+# 协方差
+def correlation(x, y):
+    # 计算标准差
+    stdev_x = standard_deviation(x)
+    stdev_y = standard_deviation(y)
+    # 需要满足两个向量的标准差均大于0
+    if stdev_x > 0 and stdev_y > 0:
+        #协方差/标准差x/标准差y
+        return covariance(x, y) / stdev_x / stdev_y
+    else:
+        return 0 # 如果含标准差为0则协方差为0
+```
