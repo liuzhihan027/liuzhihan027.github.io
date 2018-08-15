@@ -213,3 +213,53 @@ def plot_normal_pdfs(plt):
 ```
 
  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-002.png)
+
+ 如果
+ $$ \mu=0 $$
+ 并且
+ $$ \sigma=1 $$
+ 这个分布称为标准正态分布.如果**Z**是服从标准正态分布的随机变量,则有如下转换式:
+
+ $$
+X=\sigma Z+\mu
+ $$
+
+ 其中**X**也是正态分布,但均值是
+ $$ \mu $$
+ 标准差是
+ $$ \sigma $$
+ .相反,如果**X**是均值为
+ $$ \mu $$
+ 标准差为
+ $$ \sigma $$
+ 的正态分布,那么:
+
+ $$
+Z=\frac{(X-\mu)}{\sigma}
+ $$
+
+ 是标准正态分布的随机变量.
+
+ 标准正态分布的累积分布函数无法用"基本"的解析形式表示,可以在Python中使用函数**math.erf**描述:
+
+ ```python
+ # 标准正态分布的累积分布函数
+ def normal_cdf(x, mu=0,sigma=1):
+     return (1 + math.erf((x - mu) / math.sqrt(2) / sigma)) / 2
+ ```
+
+ 绘出几个正态分布的累积分布函数:
+
+ ```python
+ # 绘制正态分布的累积分布函数
+ def plot_normal_cdfs(plt):
+     xs = [x / 10.0 for x in range(-50, 50)]
+     plt.plot(xs,[normal_cdf(x,sigma=1) for x in xs],'-',label='mu=0,sigma=1')
+     plt.plot(xs,[normal_cdf(x,sigma=2) for x in xs],'--',label='mu=0,sigma=2')
+     plt.plot(xs,[normal_cdf(x,sigma=0.5) for x in xs],':',label='mu=0,sigma=0.5')
+     plt.plot(xs,[normal_cdf(x,mu=-1) for x in xs],'-.',label='mu=-1,sigma=1')
+     plt.legend(loc=4)
+     plt.show()
+ ```
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-003.png)
