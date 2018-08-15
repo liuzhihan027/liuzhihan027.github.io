@@ -332,3 +332,53 @@ $$ X_1,X_2,\cdots,X_n $$
 的分布函数为何，它们的平均数
 $$ \overline{X} $$
 当**n**充分大的时候总是近似地服从正态分布。
+
+举一个例子,一个带有**n**和**p**两个参数的**二项式**随机变量.一个二项式随机变量
+$$ Bernoulli(p) $$
+是**n**个独立伯努利随机变量
+$$ Bernoulli(p) $$
+之和,每个伯努利随机变量等于1的概率是**p**,等于0的概率是**1-p**:
+
+```python
+# 单个bernoulli随机变量
+def bernoulli_trial(p):
+    return 1 if random.random() < p else 0
+
+# 多个binomial随机变量之和
+def binomial(p, n):
+    return sum(bernoulli_trial(p) for _ in range(n))
+```
+
+每个伯努利随机变量的均值为**p**,标准差为
+$$ \sqrt{p(1-p)} $$
+.根据中心极限定理,当**n**变得很大,一个二项式随机变量近似一个正态分布的随机变量,其中均值为
+$$ \mu=np $$
+,标准差为
+$$\sigma=\sqrt{np(1-p)}$$
+将两个分布在图上绘制出来:
+
+```python
+# 整合正态分布和伯努利二项分布
+def make_hist(p, n, num_points):
+
+    data = [binomial(p, n) for _ in range(num_points)]
+
+    # use a bar chart to show the actual binomial samples
+    histogram = Counter(data)
+    plt.bar([x - 0.4 for x in histogram.keys()],
+            [v / num_points for v in histogram.values()],
+            0.8,
+            color='0.75')
+
+    mu = p * n
+    sigma = math.sqrt(n * p * (1 - p))
+
+    # use a line chart to show the normal approximation
+    xs = range(min(data), max(data) + 1)
+    ys = [normal_cdf(i + 0.5, mu, sigma) - normal_cdf(i - 0.5, mu, sigma)
+          for i in xs]
+    plt.plot(xs,ys)
+    plt.show()
+```
+
+  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
