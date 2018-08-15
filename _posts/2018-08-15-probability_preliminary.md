@@ -263,3 +263,34 @@ Z=\frac{(X-\mu)}{\sigma}
  ```
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-003.png)
+
+  有时候我们需要对正态分布的累积分布函数取逆,从而可以求出特定的概率的相应值.不存在计算逆函数的简便方法,但由于正太分布的累积分布函数连续且严格递增,因而我们可以使用二分查找的方法:
+
+  ```pyhon
+  # 二分法求逆
+  def inverse_normal_cdf(p, mu=0, sigma=1, tolerance=0.00001):
+      # 使用二分查找的方式寻找近似逆
+
+      # 如果不是标准型,先调整单位使之服从标准型
+      if mu != 0 or sigma != 1:
+          return mu + sigma * inverse_normal_cdf(p, tolerance=tolerance)
+
+      low_z, low_p = -10.0, 0            # normal_cdf(-10)非常接近0
+      hi_z,  hi_p  =  10.0, 1            # normal_cdf(10)非常接近1
+      while hi_z - low_z > tolerance:
+          # 考虑中点和实际值的所在
+          mid_z = (low_z + hi_z) / 2 
+          mid_p = normal_cdf(mid_z)
+          if mid_p < p:
+              # midpoint太低,搜索比他大的值
+              low_z, low_p = mid_z, mid_p
+          elif mid_p > p:
+              # midpoint太高,搜索比他小的值
+              hi_z, hi_p = mid_z, mid_p
+          else:
+              break
+
+      return mid_z
+  ```
+
+  这个函数反复分割区间,直到分割到一个足够接近于期望概率的精细的**Z**值.
