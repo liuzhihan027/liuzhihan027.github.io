@@ -363,7 +363,7 @@ def make_hist(p, n, num_points):
 
     data = [binomial(p, n) for _ in range(num_points)]
 
-    # use a bar chart to show the actual binomial samples
+    # 使用条形图展示二项分布样本
     histogram = Counter(data)
     plt.bar([x - 0.4 for x in histogram.keys()],
             [v / num_points for v in histogram.values()],
@@ -373,7 +373,7 @@ def make_hist(p, n, num_points):
     mu = p * n
     sigma = math.sqrt(n * p * (1 - p))
 
-    # use a line chart to show the normal approximation
+    # 使用线图表示正态分布近似值
     xs = range(min(data), max(data) + 1)
     ys = [normal_cdf(i + 0.5, mu, sigma) - normal_cdf(i - 0.5, mu, sigma)
           for i in xs]
@@ -381,4 +381,6 @@ def make_hist(p, n, num_points):
     plt.show()
 ```
 
-  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
+
+很容易看出相似性
