@@ -386,3 +386,9 @@ def make_hist(p, n, num_points):
 ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
 
 很容易看出相似性
+
+近似表达的意义在于,如果你想知道掷起一枚均匀的硬币100次中正面朝上超过60次的概率,那么可以用一个正态分布
+$$ Normal(50,5) $$
+的随机变量大于60的概率来估计.这比计算二项式分布
+$$ Binonimal(100,0.5) $$
+的累积分布函数更容易.
