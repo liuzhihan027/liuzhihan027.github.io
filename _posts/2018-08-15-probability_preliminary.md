@@ -381,6 +381,8 @@ def make_hist(p, n, num_points):
           for i in xs]
     plt.plot(xs,ys)
     plt.show()
+
+make_hist(0.75, 100, 10000)
 ```
 
 ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
