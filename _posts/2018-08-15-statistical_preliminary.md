@@ -25,7 +25,7 @@ author: ZhL
 from __future__ import division
 from collections import Counter
 
-# 依赖线性带式中的函数平方和和点乘
+# 依赖线性带数中的平方和和点乘函数
 from linear_algebra import sum_of_squares, dot
 import math
 ```
@@ -234,7 +234,7 @@ r(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var[ X ]Var[ Y ]}}
 计算方式为协方差除以两个变量的标准差:
 
 ```python
-# 协方差
+# 相关系数
 def correlation(x, y):
     # 计算标准差
     stdev_x = standard_deviation(x)
