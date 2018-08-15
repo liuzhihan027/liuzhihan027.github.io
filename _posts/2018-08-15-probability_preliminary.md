@@ -21,6 +21,7 @@ author: ZhL
 from __future__ import division
 from collections import Counter
 import math, random
+import matplotlib.pyplot as plt
 ```
 
 # 3. 不独立和独立
@@ -176,3 +177,39 @@ def uniform_cdf(x):
 
 
  ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-001.png)
+
+
+# 8. 正态分布
+
+正态分布，也称“常态分布”，又名高斯分布,是一个在数学、物理及工程等领域都非常重要的概率分布，在统计学的许多方面有着重大的影响力。
+
+正态分布的分布函数如下:
+
+$$
+f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}exp \left(  -\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$
+
+可以这样实现:
+
+```python
+# 正态分布函数
+def normal_pdf(x, mu=0, sigma=1):
+    sqrt_two_pi = math.sqrt(2 * math.pi)
+    return (math.exp(-(x-mu) ** 2 / 2 / sigma ** 2) / (sqrt_two_pi * sigma))
+```
+
+其概率密度函数:
+
+```python
+# 正态分布概率密度函数
+def plot_normal_pdfs(plt):
+    xs = [x / 10.0 for x in range(-50, 50)]
+    plt.plot(xs,[normal_pdf(x,sigma=1) for x in xs],'-',label='mu=0,sigma=1')
+    plt.plot(xs,[normal_pdf(x,sigma=2) for x in xs],'--',label='mu=0,sigma=2')
+    plt.plot(xs,[normal_pdf(x,sigma=0.5) for x in xs],':',label='mu=0,sigma=0.5')
+    plt.plot(xs,[normal_pdf(x,mu=-1)   for x in xs],'-.',label='mu=-1,sigma=1')
+    plt.legend() # 图例位置
+    plt.show()
+```
+
+ ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-002.png)
