@@ -179,7 +179,7 @@ for label, friend_count, minute_count in zip(labels, friends, minutes):
 
 plt.title(u"日分钟数与朋友数")
 
-# 将横纵坐标起始位置同步在0上
+# 避免比例压缩
 plt.axis("equal")
 plt.xlabel(u"朋友的个数")
 plt.ylabel(u"花在网站上的日分钟数")
@@ -192,7 +192,7 @@ plt.show()
 plt.axis("equal")
 ```
 
-这是强制将x和y的起始点进行同步
+这是避免比例压缩
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-005.png)
