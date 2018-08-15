@@ -124,6 +124,8 @@ P(E|F) = P(E,F)/P(F) = P(F|E)P(E)/P(F)
 $\neg E$
  指代"非E"(即"E没有发生"),有:
 
+ $\neg E$
+
  $$
 P(F) = P(F,E)+P(F,\neg E)
  $$
