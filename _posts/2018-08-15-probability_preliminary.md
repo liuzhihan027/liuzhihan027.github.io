@@ -137,14 +137,3 @@ P(E|F) = \frac{P(F|E)P(E)}{P(F|E)P(E)+P(F|\neg E)P(\neg E)}
  $$
 
  上式为贝叶斯定理常用的表达方式
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
