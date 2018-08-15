@@ -173,3 +173,6 @@ def uniform_cdf(x):
     elif x < 1: return x    # e.g. P(X < 0.4) = 0.4
     else:       return 1    # 均匀分布的随机变量总是小于1
 ```
+
+
+ ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-001.png)
