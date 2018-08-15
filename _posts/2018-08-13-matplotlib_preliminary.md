@@ -198,7 +198,7 @@ plt.axis("equal")
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-005.png)
 
 
-如果不直接使用画图,matplotlib会自动选择较合适的刻度,有时候可能会生成一个具有误导性的图
+如果直接使用画图,matplotlib会自动选择较合适的刻度,有时候可能会生成一个具有误导性的图
 
 
   ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-13-006.png)
