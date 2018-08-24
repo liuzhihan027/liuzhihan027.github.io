@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "统计学 入门"
+title:  "假设与推断 入门"
 categories: 数据科学入门
-tags: 统计学 初级
+tags: 统计学 初级 假设推断
 author: ZhL
 ---
 
@@ -19,7 +19,7 @@ author: ZhL
 # 2. 引用说明
 
 其中部分代码依赖
-[线性代数 入门](https://liuzhihan027.github.io/2018/08/14/linear_algebra_preliminary/ "线性代数 入门")中所创建的函数
+[概率论 入门](https://liuzhihan027.github.io/2018/08/15/probability_preliminary/ "概率论 入门")中所创建的函数
 
 ```python
 from __future__ import division
