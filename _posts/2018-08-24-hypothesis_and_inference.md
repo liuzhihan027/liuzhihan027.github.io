@@ -78,24 +78,19 @@ def normal_probability_outside(lo, hi, mu=0, sigma=1):
 ```python
 # 找到 P(Z<=z)= 概率 的 z 值
 def normal_upper_bound(probability, mu=0, sigma=1):
-    """returns the z for which P(Z <= z) = probability"""
     return inverse_normal_cdf(probability, mu, sigma)
 
 # 找到 P(Z>=z)= 概率 的 z 值
 def normal_lower_bound(probability, mu=0, sigma=1):
-    """returns the z for which P(Z >= z) = probability"""
     return inverse_normal_cdf(1 - probability, mu, sigma)
 
 # 返回关于均值对称的,包含指定概率的界限
 def normal_two_sided_bounds(probability, mu=0, sigma=1):
     # 尾概率
     tail_probability = (1 - probability) / 2
-
     # upper bound should have tail_probability above it
     upper_bound = normal_lower_bound(tail_probability, mu, sigma)
-
     # lower bound should have tail_probability below it
     lower_bound = normal_upper_bound(tail_probability, mu, sigma)
-
     return lower_bound, upper_bound
 ```
