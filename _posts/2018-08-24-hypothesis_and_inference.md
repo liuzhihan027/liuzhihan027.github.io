@@ -25,11 +25,9 @@ author: ZhL
 
 ```python
 from __future__ import division
-from collections import Counter
-
-# 依赖线性带数中的平方和和点乘函数
-from linear_algebra import sum_of_squares, dot
-import math
+# 依赖概率论中的正态分布相关函数
+from probability import normal_cdf, inverse_normal_cdf
+import math, random
 ```
 
 # 3. 描述单个数据集
