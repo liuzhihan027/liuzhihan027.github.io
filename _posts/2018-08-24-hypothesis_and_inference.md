@@ -88,9 +88,9 @@ def normal_lower_bound(probability, mu=0, sigma=1):
 def normal_two_sided_bounds(probability, mu=0, sigma=1):
     # 尾概率
     tail_probability = (1 - probability) / 2
-    # upper bound should have tail_probability above it
+    # 上界应该有尾概率在其上方
     upper_bound = normal_lower_bound(tail_probability, mu, sigma)
-    # lower bound should have tail_probability below it
+    # 下界应该有尾概率在其下方
     lower_bound = normal_upper_bound(tail_probability, mu, sigma)
     return lower_bound, upper_bound
 ```
