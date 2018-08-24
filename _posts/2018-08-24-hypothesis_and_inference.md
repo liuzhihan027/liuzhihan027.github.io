@@ -37,3 +37,47 @@ $$ p=0.5 $$
 .我们要对比替代假设
 $$ p \neq 0.5 $$
 来检验这个假设.
+
+具体来说,首先掷硬币n次,将出现正面朝上的次数记为
+$$ X $$
+.每次掷硬币都是一次伯努利试验,意味着
+$$ X $$
+是二项式随机变量
+$$ Binomial(n,p) $$
+,(如[概率论 入门](https://liuzhihan027.github.io/2018/08/15/probability_preliminary/ "概率论 入门")中所讲到的)可以使用正态分布来拟合:
+
+```python
+# 找到二项式参数为n和p的mu和sigma
+def normal_approximation_to_binomial(n, p):
+    mu = p * n
+    sigma = math.sqrt(p * (1 - p) * n)
+    return mu, sigma
+```
+
+只要一个随机变量服从正态分布,我们就可以用normal_cdf(正态分布的累积分布函数)来计算出一个实现数值位于(或不在)某一个特定区间的概率:
+
+```python
+# 正态cdf是一个变量在一个阈值一下的概率
+normal_probability_below = normal_cdf
+
+# 如果它不在阈值以下,就在阈值之上
+def normal_probability_above(lo, mu=0, sigma=1):
+    return 1 - normal_cdf(lo, mu, sigma)
+
+# 如果它小于hi但不比lo小,那么它在区间之内
+def normal_probability_between(lo, hi, mu=0, sigma=1):
+    return normal_cdf(hi, mu, sigma) - normal_cdf(lo, mu, sigma)
+
+# 如果不在区间之内,那么就在区间之外
+def normal_probability_outside(lo, hi, mu=0, sigma=1):
+    return 1 - normal_probability_between(lo, hi, mu, sigma)
+```
+
+或者反过来,找出非尾区域,或者找出均值两边的(对称)区域,这个区域恰好对应特定比例的可能性.比如,如果我们需要找出以均值为中心,覆盖60%可能性的区间,那我们需要找到两个截点,使上尾和下尾各覆盖20%的可能性(给中间留出60%):
+
+```python
+# 找到 P(Z<=z)= 概率 的 z 值
+def normal_upper_bound(probability, mu=0, sigma=1):
+    """returns the z for which P(Z <= z) = probability"""
+    return inverse_normal_cdf(probability, mu, sigma)
+```
