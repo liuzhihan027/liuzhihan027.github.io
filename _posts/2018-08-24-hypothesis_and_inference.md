@@ -166,3 +166,56 @@ power = 1 - type_2_probability
 print "type 2 probability", type_2_probability # 0.113451998705
 print "power", power # 0.886548001295
 ```
+
+如果我们把原假设变为掷硬币的结果不会偏重于正面朝上,即
+$$ P \leq 0.5 $$
+,在这种情况下,我们使用**单边检验**.如果
+$$ X $$
+远大于50,我们就拒绝原假设,如果
+$$ X $$
+小于50,我们就不拒绝原假设.因此,显著性为5%的检验需要使用normal_probability_below来找出小于95%的概率对应的截点:
+
+```python
+hi = normal_upper_bound(0.95, mu_0, sigma_0)
+print "hi", hi # 526.007358524 (< 531,因此我们在上尾需要更多的概率)
+type_2_probability = normal_probability_below(hi, mu_1, sigma_1)
+power = 1 - type_2_probability
+print "type 2 probability", type_2_probability # 0.0636205196693
+print "power", power # 0.936379480331
+```
+
+这是更有效的检验.如果
+$$ X $$
+小于469,我们就不再拒绝
+$$ H_0 $$
+(如果
+$$ H_1 $$
+为真,这不太可能发生),当
+$$ X $$
+在526和531之间时则拒绝
+$$ H_0 $$
+(如果
+$$ H_1 $$
+为真,这很有可能发生).
+
+进行上述检验的另一种方式涉及**p值**.我们不再基于某个概率截点选择临界值,而是计算概率--假设
+$$ H_0 $$
+正确--我们可以找到一个至少与我们实际观测到的值一样极端的值.
+
+对于硬币是否均匀的双面检验,我们可以做如下计算:
+
+```python
+def two_sided_p_value(x, mu=0, sigma=1):
+    if x >= mu:
+        # 如果x大于均值,tail表示比x大多少
+        return 2 * normal_probability_above(x, mu, sigma)
+    else:
+        # 如果x比均值小,tail表示比x小多少
+        return 2 * normal_probability_below(x, mu, sigma)
+```
+
+如果我们希望看到结果中有530次为正面朝上,可以这样计算:
+
+```python
+print "two_sided_p_value(529.5, mu_0, sigma_0)", two_sided_p_value(529.5, mu_0, sigma_0)  # 0.062077215796
+```
