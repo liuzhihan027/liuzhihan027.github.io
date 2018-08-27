@@ -241,3 +241,38 @@ def count_extreme_values():
     return extreme_value_count / 100000
 # 0.06305
 ```
+
+因为
+$$ p $$
+值大于5%的显著性,所以我们不能拒绝原假设.如果我们看到了532次正面朝上,那么相应的
+$$ p $$
+值为:
+
+```python
+two_sided_p_value(531.5, mu_0, sigma_0) # 0.0463452878378
+```
+
+它小于5%的显著性,因此我们拒绝原假设.它正好是和之前相同的检验,只是计算统计量的方法稍有不同.
+
+同样我们有:
+
+```python
+upper_p_value = normal_probability_above
+lower_p_value = normal_probability_below
+```
+
+对于单边检验,如果我们看到525次正面朝上,那么可以计算:
+
+```python
+upper_p_value(525, mu_0, sigma_0) # 0.0606288577258
+```
+
+这意味着我们会拒绝原假设.如果我们看到527次正面朝上,相应计算如下:
+
+```python
+upper_p_value(526.5, mu_0, sigma_0) # 0.0468683950886
+```
+
+根据结果,我们会拒绝原假设.
+
+再调用函数
