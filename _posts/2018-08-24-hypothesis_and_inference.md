@@ -219,3 +219,24 @@ def two_sided_p_value(x, mu=0, sigma=1):
 ```python
 print "two_sided_p_value(529.5, mu_0, sigma_0)", two_sided_p_value(529.5, mu_0, sigma_0)  # 0.062077215796
 ```
+
+为什么使用529.5而不用530?这是所谓的**连续矫正**.它反映了一个事实,即对从掷硬币结果中看到530次正面朝上的概率而言,normal_probability_between(529.5,530.5,mu_0,sigma_0)是比normal_probability_between(530,531,mu_0,sigma_0)更好的估计.
+
+相应的,normal_probability_above(529.5,nu_0,sigma_0)是看到至少530次正面朝上概率的更好估计,如图:
+
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-15-004.png)
+
+回到主要探讨的问题上来,验证这种观点是否合理的一个方法是模拟:
+
+```python
+def count_extreme_values():
+    # 对极端值进行计数
+    extreme_value_count = 0
+    for _ in range(100000):
+        num_heads = sum(1 if random.random() < 0.5 else 0    # 正面朝上计数
+                        for _ in range(1000))                # 一千次投掷
+        if num_heads >= 530 or num_heads <= 470:             # 计算达到极值的频率
+            extreme_value_count += 1
+
+    return extreme_value_count / 100000
+```
