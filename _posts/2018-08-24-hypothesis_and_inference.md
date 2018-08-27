@@ -75,6 +75,7 @@ def normal_probability_outside(lo, hi, mu=0, sigma=1):
 
 或者反过来,找出非尾区域,或者找出均值两边的(对称)区域,这个区域恰好对应特定比例的可能性.比如,如果我们需要找出以均值为中心,覆盖60%可能性的区间,那我们需要找到两个截点,使上尾和下尾各覆盖20%的可能性(给中间留出60%):
 
+
 ```python
 # 找到 P(Z<=z)= 概率 的 z 值
 def normal_upper_bound(probability, mu=0, sigma=1):
@@ -93,4 +94,31 @@ def normal_two_sided_bounds(probability, mu=0, sigma=1):
     # 下界应该有尾概率在其下方
     lower_bound = normal_upper_bound(tail_probability, mu, sigma)
     return lower_bound, upper_bound
+```
+
+具体来说,首先我们选择掷硬币
+$$ n=1000 $$
+次.如果关于均匀的原假设是正确的,那么
+$$ X $$
+近似服从正态分布,均值为50,标准差为15.8:
+
+```python
+# 二项分布的均值和期望
+   mu_0, sigma_0 = normal_approximation_to_binomial(1000, 0.5)
+   print "mu_0", mu_0 # 500.0
+   print "sigma_0", sigma_0 # 15.8113883008
+```
+
+我们需要对**显著性**下定义--我们有多大的可能性犯**第一类错误**("容错").之这种情况下我们拒绝了原假设
+$$ H_0 $$
+,但实际上原假设是正确的.出于历史上的某些原因,可能性大小通常设定为5%或者1%.本文在此选择5%.
+
+考虑这样的检验--如果
+$$ X $$
+落在以下区间以外,就拒绝原假设
+$$ H_0 $$
+:
+
+```python
+
 ```
