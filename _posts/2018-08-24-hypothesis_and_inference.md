@@ -239,4 +239,5 @@ def count_extreme_values():
             extreme_value_count += 1
 
     return extreme_value_count / 100000
+# 0.06305
 ```
