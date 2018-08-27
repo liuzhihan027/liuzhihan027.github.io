@@ -120,5 +120,49 @@ $$ H_0 $$
 :
 
 ```python
+print "normal_two_sided_bounds(0.95, mu_0, sigma_0)", normal_two_sided_bounds(0.95, mu_0, sigma_0)
+# (469.01026640487555, 530.9897335951244)
+```
 
+假设
+$$ p $$
+实际上等于0.5(即,此时
+$$ H_0 $$
+成立),那么我们有5%的可能性观测到
+$$ X $$
+落在区间之外,这正是我们想要的显著性.换句话说,如果
+$$ H_0 $$
+为真,那么20次检验中大约有19次会得出正确的结果.
+
+我们常常对检验的**势**有兴趣,它指的是不犯**第2类错误**的概率.第2类错误指原假设
+$$ H_0 $$
+是错的,但我们的检验结果没有拒绝原假设(即"纳伪").为了衡量统计的势,我们需要精确衡量
+$$ H_0 $$
+是错的**意味着什么**.(仅仅知道
+$$ p $$
+不是0.55不足以为
+$$ X $$
+的分布提供足够的信息.)具体来说,假如
+$$ p $$
+实际上是0.55,那么掷硬币的结果会稍微多偏向正面朝上.
+
+在这种情形下,我们这样计算检验的势:
+
+```python
+# 基于假设p是0.5时95%的边界
+lo, hi = normal_two_sided_bounds(0.95, mu_0, sigma_0)
+print "lo", lo # 469.010266405
+print "hi", hi # 530.989733595
+
+# 基于 p = 0.55的真实mu和sigma
+mu_1, sigma_1 = normal_approximation_to_binomial(1000, 0.55)
+print "mu_1", mu_1 # 550.0
+print "sigma_1", sigma_1 # 15.7321327226
+
+# 第二类错误意味着我们没有拒绝原假设
+# 这会在X仍然在最初的区间时发生
+type_2_probability = normal_probability_between(lo, hi, mu_1, sigma_1)
+power = 1 - type_2_probability
+print "type 2 probability", type_2_probability # 0.113451998705
+print "power", power # 0.886548001295
 ```
