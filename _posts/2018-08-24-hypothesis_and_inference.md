@@ -473,4 +473,27 @@ two_sided_p_value(z) # 0.00318969970622
 
 推断的一个替代方法是将未知参数视为随机变量.从参数的**先验分布**出发,再利用观测数据和贝叶斯定理计算出更新后的**后验分布**.不再对检验本身给出概率推断,二是对参数本身给出概率判断.
 
-比如,如果未知参数是概率(就想掷硬币的例子)
+比如,如果未知参数是概率(就想掷硬币的例子),我们使用**Beta分布**作为先验分布,Beta分布仅对0和1赋值:
+
+```python
+def B(alpha, beta):
+    """a normalizing constant so that the total probability is 1"""
+    return math.gamma(alpha) * math.gamma(beta) / math.gamma(alpha + beta)
+
+def beta_pdf(x, alpha, beta):
+    if x < 0 or x > 1:          # no weight outside of [0, 1]
+        return 0
+    return x ** (alpha - 1) * (1 - x) ** (beta - 1) / B(alpha, beta)
+```
+
+一般来说,以上分布的权重中心为:
+
+```python
+alpha / (alpha + beta)
+```
+
+alpha和beta越大,分布就越"紧密".
+
+例如,如果alpha和beta都是1,那么刚好是均匀分布(以0.5为中心,非常分散).如果alpha比beta大很多,那么大多数权重接近1.如果alpha比beta小很多,那么大多数权重接近零.
+
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-28-001.png)
