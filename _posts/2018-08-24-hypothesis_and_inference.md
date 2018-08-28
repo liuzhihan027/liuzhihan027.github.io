@@ -337,3 +337,40 @@ normal_two_sided_bounds(0.95, mu, sigma) # [0.5091,0.579]
 ```
 
 在这种情况下,"均匀硬币"没有落入置信区间.("均匀硬币"的假设没有通过检验.如果假设是真的,那需要在95%的时间中都能通过.)
+
+
+# 5. P-hacking
+
+
+如果一个程序仅有5%的时间错误地拒绝了原假设,那么根据定义,5%的时间会错误地拒绝原假设:
+
+```python
+def run_experiment():
+    # 掷硬币100次,真 = 头概率,假 = 尾概率
+    return [random.random() < 0.5 for _ in range(1000)]
+
+def reject_fairness(experiment):
+    # 使用5%作为显著水平
+    num_heads = len([flip for flip in experiment if flip])
+    return num_heads < 469 or num_heads > 531
+
+random.seed(0)
+experiments = [run_experiment() for _ in range(1000)]
+num_rejections = len([experiment
+                      for experiment in experiments
+                      if reject_fairness(experiment)])
+
+print num_rejections, "rejections out of 1000" # 46
+```
+
+这意味着如果你有意找出"显著"结果,那么总是可以的.只要对数据的假设检验次数足够多,就总有某些会表现出显著性.移除右边的那些异常值,就可以得到小于0.05的
+$$ p $$
+值.(这里与[统计学 入门](https://liuzhihan027.github.io/2018/08/15/statistical_preliminary// "统计学 入门")中的相关性有些类似.)
+
+这就是所谓的P-hacking,它某种程度上是"基于
+$$ p $$
+值框架的推断
+"的结果.
+
+如果从事数据方面的工作,就要在审查数据之前确定你的假设,就要在做假设之前整理好数据,并且要牢记,
+$$ p $$
