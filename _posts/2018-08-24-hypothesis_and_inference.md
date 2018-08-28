@@ -477,11 +477,11 @@ two_sided_p_value(z) # 0.00318969970622
 
 ```python
 def B(alpha, beta):
-    """a normalizing constant so that the total probability is 1"""
+    # 归一化操作,使总概率为1
     return math.gamma(alpha) * math.gamma(beta) / math.gamma(alpha + beta)
 
 def beta_pdf(x, alpha, beta):
-    if x < 0 or x > 1:          # no weight outside of [0, 1]
+    if x < 0 or x > 1:          # [0, 1]以外没有权重
         return 0
     return x ** (alpha - 1) * (1 - x) ** (beta - 1) / B(alpha, beta)
 ```
