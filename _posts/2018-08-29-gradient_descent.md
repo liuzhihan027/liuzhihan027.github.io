@@ -31,7 +31,7 @@ from linear_algebra import distance, vector_subtract, scalar_multiply
 import math, random
 ```
 
-# 2. 梯度下降的思想
+# 3. 梯度下降的思想
 
 假设我们拥有某个函数 
 $$ f $$
@@ -52,3 +52,26 @@ $$ v $$
 相应地,最大化函数的算法首先从一个随机初始点开始,计算梯度,在梯度方向(这是使函数增长最快的一个方向)上跨越一小步,再从一个新的初始点开始重复这个过程.同样,也可以在**相反**风向上逐步最小化函数.
 
 ![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-29-001.png)
+
+如果一个函数有一个全局最小点,那么这个方法很可能会找到它.如果这个函数有多个(局部)最小点,那么这种方法可能找不到这个点,但可以通过多尝试一些初始点来重复运行这个方法.如果一个函数没有最小点,也许计算会陷入死循环.
+
+# 4. 估算梯度
+
+如果
+$$ f $$
+是单变量函数,那么它在
+$$ x $$
+点的导数衡量了当
+$$ x $$
+发生变化时,
+$$ f(x) $$
+变化了多少.导数通过差商的极限来定义:
+
+```python
+def difference_quotient(f, x, h):
+    return (f(x + h) - f(x)) / h
+```
+
+其中
+$$ h $$
+趋近于0.
