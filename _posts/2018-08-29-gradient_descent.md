@@ -31,3 +31,7 @@ from linear_algebra import distance, vector_subtract, scalar_multiply
 import math, random
 ```
 
+# 2. 梯度下降的思想
+
+假设我们拥有某个函数 
+$$ f $$
