@@ -90,4 +90,33 @@ $$ (x+h,f(x+h)) $$
 $$ h $$
 越来越小,割线与切线就越来越近(见上图).
 
-很多函数
+很多函数可以精确地计算导数,比如平方函数square:
+
+```python
+def square( x ) :
+    return x * x
+```
+
+它的导数为:
+
+```python
+def derivative( x ):
+    return 2 * x
+```
+
+可以通过计算来确认,先显式地计算差商,再取极限.
+
+如果算不出梯度或者不想算,Python中无法直接运算极限,但可以通过计算一个很小的变动
+$$ e $$
+的差商来估算微分.
+
+```python
+derivative_estimate = lambda x: difference_quotient(square, x, h=0.00001)
+
+    # plot to show they're basically the same
+    import matplotlib.pyplot as plt
+    x = range(-10,10)
+    plt.plot(x, map(derivative, x), 'rx')           # red  x
+    plt.plot(x, map(derivative_estimate, x), 'b+')  # blue +
+    plt.show()  
+```
