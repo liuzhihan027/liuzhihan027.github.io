@@ -75,3 +75,19 @@ def difference_quotient(f, x, h):
 其中
 $$ h $$
 趋近于0.
+
+通过差商来求近似导数:
+
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-30-001.png)
+
+导数就是在点
+$$ (x, f(x)) $$
+的切线的斜率,而差商就是通过点
+$$ (x, f(x)) $$
+和点
+$$ (x+h,f(x+h)) $$
+的割线的斜率.当
+$$ h $$
+越来越小,割线与切线就越来越近(见上图).
+
+很多函数
