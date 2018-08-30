@@ -113,10 +113,51 @@ $$ e $$
 ```python
 derivative_estimate = lambda x: difference_quotient(square, x, h=0.00001)
 
-    # plot to show they're basically the same
+    # 精确值和估算值基本一致
     import matplotlib.pyplot as plt
     x = range(-10,10)
     plt.plot(x, map(derivative, x), 'rx')           # red  x
     plt.plot(x, map(derivative_estimate, x), 'b+')  # blue +
     plt.show()  
 ```
+
+![image](https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/2018-08-30-002.png)
+
+当
+$$ f $$
+是一个多变量函数时,它有多个偏导数,每个偏导数表示仅有一个输入变量发生微小变化时函数
+$$ f $$
+的变化.
+
+我们把导数看成是其第
+$$ i $$
+个变量的函数,其他变量保持不变,以此来计算它第
+$$ i $$
+个偏导数:
+
+```python
+def partial_difference_quotient(f, v, i, h):
+    # 仅对v的第i个元素增加h
+    w = [v_j + (h if j == i else 0)
+         for j, v_j in enumerate(v)]
+         
+    return (f(w) - f(v)) / h
+```
+
+再以同样的方式估算它的梯度函数:
+
+```python
+def estimate_gradient(f, v, h=0.00001):
+    return [partial_difference_quotient(f, v, i, h)
+            for i, _ in enumerate(v)] 
+```
+
+"差商估算法"的主要缺点是计算代价很大.如果
+$$ v $$
+长度为
+$$ n $$
+,那么estimate_gradient为了计算
+$$ f $$
+需要
+$$ 2n $$
+个不同的输入变量.如果你需要反复计算梯度,那需要你做很多额外的工作.
