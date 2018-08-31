@@ -196,6 +196,72 @@ while True:
     print "minimum value", sum_of_squares(v)
 ```
 
+如果运行以上程序,会发现,它总是止于一个非常接近[0,0,0]的
+$$ v $$
+值.tolerance值设定得越小,
+$$ v $$
+值就越接近[0,0,0].
+
+
+# 6. 选择正确步长
+
+尽管向梯度的方向移动的逻辑已经清除了,但移动多少还不明了.主流的选择方法有:
+
+* 使用固定步长
+* 时间增长逐步减小步长
+* 在每一步中通过最小化目标函数的值来选择合适的步长
+
+最后一种方法看上去不错,但它的计算代价也很大.可以尝试一系列步长,并选出使目标函数值最小的那个步长来求其近似值:
+
+```python
+step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]
+```
+
+某些步长可能会导致函数的输入无效.所以,需要创建一个对无效输入值返回无限值(即这个值永远不会成为任何函数的最小值)的"安全应用"函数:
+
+```python
+def safe(f):
+    # 定义一个新的函数来包装原函数(f)并返回它
+    def safe_f(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except:
+            return float('inf')         # 返回无穷(无限值)
+    return safe_f
+```
+
+# 7. 综合
+
+通常,有一些target_fn函数,需要对其进行最小化,也有梯度函数gradient_fn.比如,函数target_fn可能代表模型的残差,它是参数的函数.可能需要找到能使残差尽可能小的参数.
+
+此外,假设(以某种方式)为参数theta_0设定了某个初始值,那么可以如下使用梯度下降法:
+
+```python
+def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
+    # 使用梯度下降寻找目标函数最小化的θ
+    
+    step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]
+    
+    theta = theta_0                           # 设置初始值θ_0
+    target_fn = safe(target_fn)               # 目标函数的安全函数
+    value = target_fn(theta)                  # 目前正在最小化的值
+    
+    while True:
+        gradient = gradient_fn(theta)  
+        next_thetas = [step(theta, gradient, -step_size)
+                       for step_size in step_sizes]
+                   
+        # 选择一个最小化误差函数的函数  
+        next_theta = min(next_thetas, key=target_fn)
+        next_value = target_fn(next_theta)
+        
+        # 如果小于阈值则认为是收敛,返回
+        if abs(value - next_value) < tolerance:
+            return theta
+        else:
+            theta, value = next_theta, next_value
+```
+
 
 
 
