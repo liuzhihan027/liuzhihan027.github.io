@@ -161,3 +161,90 @@ $$ f $$
 需要
 $$ 2n $$
 个不同的输入变量.如果你需要反复计算梯度,那需要你做很多额外的工作.
+
+
+# 5. 使用梯度
+
+很容易看出,当输入
+$$ v $$
+是零向量时,函数sum_of_squares取值最小.但如果不知道输入是什么,可以用梯度方法从所有的三维向量中找到最小值.先找出随机初始点,并在梯度的反方向以小步逐步前进,直到梯度变得非常非常小:
+
+```python
+def step(v, direction, step_size):
+    # 在v的方向上移动步长
+    return [v_i + step_size * direction_i
+            for v_i, direction_i in zip(v, direction)]
+
+# 梯度的平方
+def sum_of_squares_gradient(v): 
+    return [2 * v_i for v_i in v]
+
+# 随机选择一个初始值
+v = [random.randint(-10,10) for i in range(3)]
+
+tolerance = 0.0000001
+
+while True:
+    #print v, sum_of_squares(v)
+    gradient = sum_of_squares_gradient(v)   # 计算v的梯度
+    next_v = step(v, gradient, -0.01)       # 取负的梯度步长
+    if distance(next_v, v) < tolerance:     # 如果收敛了就停止
+        break
+    v = next_v                              # 如果没有汇合就继续
+
+    print "minimum v", v
+    print "minimum value", sum_of_squares(v)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
