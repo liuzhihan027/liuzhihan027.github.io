@@ -295,7 +295,6 @@ def maximize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
 
 ```python
 def in_random_order(data):
-    """generator that returns the elements of data in random order"""
     indexes = [i for i, _ in enumerate(data)]  # 建立索引列表
     random.shuffle(indexes)                    # 随机打乱数据
     for i in indexes:                          # 返回列表中的数据
