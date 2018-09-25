@@ -262,6 +262,77 @@ def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
             theta, value = next_theta, next_value
 ```
 
+批量梯度下降,在每一步梯度计算中,会搜索整个数据集(因为target_fn代表整个数据集的残差).
+
+如果我们需要**最大化**某个函数,这时只需要最小化这个函数的负值(其对应的梯度函数也要取负值):
+
+```python
+# 函数取负值
+def negate(f):
+    return lambda *args, **kwargs: -f(*args, **kwargs)
+
+# 函数导数取负值
+def negate_all(f):
+    return lambda *args, **kwargs: [-y for y in f(*args, **kwargs)]
+
+# 批量梯度上升(梯度下降取负值)
+def maximize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
+    return minimize_batch(negate(target_fn),
+                          negate_all(gradient_fn),
+                          theta_0, 
+                          tolerance)
+```
+
+# 8. 随机梯度下降法
+
+上方使用的方法,通过最小化某种形式的残差来选择模型参数.如果使用批量梯度下降法,每个梯度计算都需要预测并计算整个数据集的梯度,这使得每一步都会耗费很长时间.
+
+这些残差函数常常具有**可加性**,意味着整个数据集上的预测残差恰好是每个数据点的预测残差之和.
+
+这种情形下,使用**随机梯度下降法**,它每次仅计算一个点的梯度,并向前跨一步.这个计算会反复循环,直到达到一个停止点.
+
+在每个循环中,都会在整个数据集上按照一个随机序列迭代:
+
+```python
+def in_random_order(data):
+    """generator that returns the elements of data in random order"""
+    indexes = [i for i, _ in enumerate(data)]  # 建立索引列表
+    random.shuffle(indexes)                    # 随机打乱数据
+    for i in indexes:                          # 返回列表中的数据
+        yield data[i]
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
