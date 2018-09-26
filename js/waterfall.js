@@ -15,7 +15,7 @@
   var demoContent = [
     {
       demo_link: 'https://codepen.io/haoyang/pen/jrvrQq',
-      img_link: 'https://ooo.0o0.ooo/2016/11/24/5836d81f48cd2.png',
+      img_link: 'https://github.com/liuzhihan027/liuzhihan027.github.io/raw/master/images-folder/button.png',
       code_link: 'https://codepen.io/haoyang/pen/jrvrQq',
       title: 'Fisher-Yates 洗牌算法动画',
       core_tech: 'JavaScript',
