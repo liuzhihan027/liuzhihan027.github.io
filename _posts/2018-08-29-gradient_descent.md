@@ -302,6 +302,47 @@ def in_random_order(data):
 
 ```
 
+对每个数据点都会进行一步梯度计算.这种方法含有这样一种可能性,也许会在最小值附近一直循环下去,所以,每当停止获得改进,都会减小步长并最终退出:
+
+```python
+# 随机梯度下降
+def minimize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
+    data = zip(x, y)
+    theta = theta_0                             # 初始值猜测
+    alpha = alpha_0                             # 初始步长
+    min_theta, min_value = None, float("inf")   # 当前最小值
+    iterations_with_no_improvement = 0
+    
+    # 如果循环超过100次仍无改进,则停止
+    while iterations_with_no_improvement < 100:
+        value = sum( target_fn(x_i, y_i, theta) for x_i, y_i in data )
+
+        if value < min_value:
+            # 如果找到新的最小值,记住它,并返回最初的步长
+            min_theta, min_value = theta, value
+            iterations_with_no_improvement = 0
+            alpha = alpha_0
+        else:
+            # 逐步缩小步长,否则没有改进
+            iterations_with_no_improvement += 1
+            alpha *= 0.9
+
+        # 在每个数据点上向梯度方向前进一步
+        for x_i, y_i in in_random_order(data):
+            gradient_i = gradient_fn(x_i, y_i, theta)
+            theta = vector_subtract(theta, scalar_multiply(alpha, gradient_i))
+            
+    return min_theta
+```
+
+随机梯度下降通常比批量梯度下降要快,如果需要获得最大化的结果:
+
+```python
+def maximize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
+    return minimize_stochastic(negate(target_fn),
+                               negate_all(gradient_fn),
+                               x, y, theta_0, alpha_0)
+```
 
 
 
