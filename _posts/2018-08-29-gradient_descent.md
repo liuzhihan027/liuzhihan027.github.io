@@ -33,7 +33,7 @@ import math, random
 
 # 3. 梯度下降的思想
 
-假设我们拥有某个函数 
+假设我们拥有某个函数
 $$ f $$
 ,这个函数输入一个实数向量,输出一个实数.一个简单的例子:
 
@@ -140,7 +140,7 @@ def partial_difference_quotient(f, v, i, h):
     # 仅对v的第i个元素增加h
     w = [v_j + (h if j == i else 0)
          for j, v_j in enumerate(v)]
-         
+
     return (f(w) - f(v)) / h
 ```
 
@@ -149,7 +149,7 @@ def partial_difference_quotient(f, v, i, h):
 ```python
 def estimate_gradient(f, v, h=0.00001):
     return [partial_difference_quotient(f, v, i, h)
-            for i, _ in enumerate(v)] 
+            for i, _ in enumerate(v)]
 ```
 
 "差商估算法"的主要缺点是计算代价很大.如果
@@ -176,7 +176,7 @@ def step(v, direction, step_size):
             for v_i, direction_i in zip(v, direction)]
 
 # 梯度的平方
-def sum_of_squares_gradient(v): 
+def sum_of_squares_gradient(v):
     return [2 * v_i for v_i in v]
 
 # 随机选择一个初始值
@@ -239,22 +239,22 @@ def safe(f):
 ```python
 def minimize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
     # 使用梯度下降寻找目标函数最小化的θ
-    
+
     step_sizes = [100, 10, 1, 0.1, 0.01, 0.001, 0.0001, 0.00001]
-    
+
     theta = theta_0                           # 设置初始值θ_0
     target_fn = safe(target_fn)               # 目标函数的安全函数
     value = target_fn(theta)                  # 目前正在最小化的值
-    
+
     while True:
         gradient = gradient_fn(theta)  
         next_thetas = [step(theta, gradient, -step_size)
                        for step_size in step_sizes]
-                   
+
         # 选择一个最小化误差函数的函数  
         next_theta = min(next_thetas, key=target_fn)
         next_value = target_fn(next_theta)
-        
+
         # 如果小于阈值则认为是收敛,返回
         if abs(value - next_value) < tolerance:
             return theta
@@ -279,7 +279,7 @@ def negate_all(f):
 def maximize_batch(target_fn, gradient_fn, theta_0, tolerance=0.000001):
     return minimize_batch(negate(target_fn),
                           negate_all(gradient_fn),
-                          theta_0, 
+                          theta_0,
                           tolerance)
 ```
 
@@ -312,7 +312,7 @@ def minimize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
     alpha = alpha_0                             # 初始步长
     min_theta, min_value = None, float("inf")   # 当前最小值
     iterations_with_no_improvement = 0
-    
+
     # 如果循环超过100次仍无改进,则停止
     while iterations_with_no_improvement < 100:
         value = sum( target_fn(x_i, y_i, theta) for x_i, y_i in data )
@@ -331,7 +331,7 @@ def minimize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
         for x_i, y_i in in_random_order(data):
             gradient_i = gradient_fn(x_i, y_i, theta)
             theta = vector_subtract(theta, scalar_multiply(alpha, gradient_i))
-            
+
     return min_theta
 ```
 
@@ -343,85 +343,3 @@ def maximize_stochastic(target_fn, gradient_fn, x, y, theta_0, alpha_0=0.01):
                                negate_all(gradient_fn),
                                x, y, theta_0, alpha_0)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
